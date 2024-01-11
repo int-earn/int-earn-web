@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { TextField, Typography, Grid }from '@mui/material'
 
 const initialState = {
     nickname: "",
@@ -29,39 +30,48 @@ export default function Join() {
     return (
         <div style={{marginTop: '100px'}}>
         <div id="contact" style={{margin: '0 auto', width: '100%', height: '90%', position: 'relative'}}>
-            <form 
-                onSubmit={handleSubmit}
-                style={{width: '400px', height: '450px', position: 'absolute', top:'50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'white', boxShadow: '5px 5px 5px #c7c8c7'}}>
+            <div style={{width: '500px', height: '450px', position: 'absolute', top:'50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
+            <div className='section-title'>
+                <h2>Sign up</h2>
+            </div>
+            <form onSubmit={handleSubmit}>
+                <Typography>닉네임</Typography>
+                {/* <div><label style={{display: 'block'}}>닉네임</label></div>
                 <input 
                     type="text"
                     name="nickname" 
                     value={nickname} 
+                    className="form-control"
                     onChange={handleChange} 
-                    style={{color: 'black'}}
+                    style={{color: 'black', width: '300px', height: '50px', borderRadius: '10px', marginBottom: '12px'}}
                 />
                 <input 
                     type="text"
                     name="username" 
                     value={username} 
+                    className="form-control"
                     onChange={handleChange} 
-                    style={{color: 'black'}}
+                    style={{color: 'black', width: '300px', height: '50px', borderRadius: '10px', marginBottom: '12px'}}
                 />
                 <input 
                     type="password"
                     name="password" 
                     value={password} 
+                    className="form-control"
                     onChange={handleChange} 
-                    style={{color: 'black'}}
+                    style={{color: 'black', width: '300px', height: '50px', borderRadius: '10px', marginBottom: '12px'}}
                 />
                 <input 
                     type="password"
                     name="rePassword" 
                     value={rePassword} 
+                    className="form-control"
                     onChange={handleChange} 
-                    style={{color: 'black'}}
+                    style={{color: 'black', width: '300px', height: '50px', borderRadius: '10px', marginBottom: '12px'}}
                 />
-                <button type="submit">submit</button>
+                <button type="submit">submit</button> */}
             </form>
+            </div>
         </div>
         </div>
     )
