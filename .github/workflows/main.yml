@@ -25,11 +25,14 @@ jobs:
           
       #보안 properties파일 생성
       - uses: actions/checkout@v2
-      - run: touch ./backend/src/main/resources/application-security.properties
-      - run: echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./src/main/resources/application-security.properties
+      - run: |  
+          cd backend
+          touch ./src/main/resources/application-security.properties
+          echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./src/main/resources/application-security.properties
         shell: bash
       
       - name: Grant execute permission for gradlew
+        working-directory: ./backend
         run: chmod +x ./gradlew
         shell: bash
 
