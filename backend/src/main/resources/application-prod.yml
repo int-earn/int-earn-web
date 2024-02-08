@@ -1,0 +1,13 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://intearn.cxc0gqougdjo.ap-northeast-2.rds.amazonaws.com:3307/intearn
+    username: admin
+    password: syj8819!
+
+  jpa:
+    hibernate:
+      ddl-auto: update
