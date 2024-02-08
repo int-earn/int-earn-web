@@ -24,10 +24,10 @@ jobs:
           java-version: 21
           
       #보안 properties파일 생성
-      #- uses: actions/checkout@v2
-      #- run: touch ./src/main/resources/application-security.properties
-      #- run: echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./src/main/resources/application-security.properties
-      #  shell: bash
+      - uses: actions/checkout@v2
+      - run: touch ./backend/src/main/resources/application-security.properties
+      - run: echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./src/main/resources/application-security.properties
+        shell: bash
       
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
