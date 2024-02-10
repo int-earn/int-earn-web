@@ -11,6 +11,7 @@ const initialState = {
 }
 
 export default function Join() {
+    const IP = process.env.REACT_APP_IP
     const navigate = useNavigate();
     const [{ nickname, username, password, rePassword }, setState] = useState(initialState);
     const handleChange = (e) => {
@@ -19,14 +20,14 @@ export default function Join() {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("t")
         const data = {
             nickname: nickname,
             username: username,
             password: password,
             rePassword: rePassword
         }
-        const response = await axios.post('http://localhost:8080/api/user/save', data)
+        //const response = await axios.post('http://localhost:8080/api/user/save', data)
+        const response = await axios.post(`${IP}/api/user/save`, data)
         console.log(response);
         if (response.status === 201) {
             navigate('/')
