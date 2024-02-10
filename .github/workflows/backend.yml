@@ -2,8 +2,8 @@ name: Build and Deploy Spring Boot to AWS EC2
 
 on:
   push:
-    branches:
-      - master  #main branch에 push 시 동작
+    branches: master
+    paths: 'backend/**'
 
 env:
   S3_BUCKET_NAME : intearn-backend
