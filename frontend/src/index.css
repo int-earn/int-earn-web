@@ -2,6 +2,14 @@
   font-family: 'NanumSquareLight';
   src: url(./assets/fonts/NanumSquareL.otf);
 }
+@font-face {
+  font-family: 'NanumSquareBold';
+  src: url(./assets/fonts/NanumSquareB.otf);
+}
+@font-face {
+  font-family: 'NanumSquare';
+  src: url(./assets/fonts/NanumSquareEB.otf);
+}
 
 body {
   margin: 0;
@@ -19,4 +27,6 @@ code {
 
 :root {
   --font-nanum-light: 'NanumSquareLight';
+  --font-nanum-bold: 'NanumSquareBold';
+  --font-nanum-eb: 'NanumSquare';
 }
