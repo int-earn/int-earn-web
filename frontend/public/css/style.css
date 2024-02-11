@@ -141,7 +141,7 @@ hr {
   background-color: #608dfd;
 }
 .section-title {
-  margin-bottom: 70px;
+  margin-bottom: 40px;
 }
 .section-title h2 {
   position: relative;
@@ -152,7 +152,7 @@ hr {
 .section-title h2::after {
   position: absolute;
   content: "";
-  background: linear-gradient(to right, #5ca9fb 0%, #6372ff 100%);
+  /* background: linear-gradient(to right, #5ca9fb 0%, #6372ff 100%); */
   height: 4px;
   width: 60px;
   bottom: 0;
@@ -313,6 +313,18 @@ header .intro-text {
   font-size: 15px;
 }
 /* Services Section */
+/* #service .test {
+  cursor: pointer;
+} */
+#service .test:hover {
+  cursor: pointer;
+  background-color: #e5e5e5;
+  
+}
+#service .title:hover {
+  color: black;
+  font-weight: bold;
+}
 #services {
   padding: 100px 0;
   background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%);

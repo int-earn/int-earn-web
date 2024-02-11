@@ -17,8 +17,8 @@ export const TestHeader = () => {
         }}
         >
         <div id="#test" style={{display: 'flex', flexDirection: 'column'}}>
-            <h2 style={{color: 'white', fontSize: '60px', textAlign: 'center', textShadow: '-2px 0px black, 0px 2px black, 2px 0px black, 0px -2px black'}}>SKKU</h2>
-        <h2 style={{color: 'white', fontSize: '60px', textAlign: 'center', textShadow: '-2px 0px black, 0px 2px black, 2px 0px black, 0px -2px black'}}>GLOBAL CHALLENGE</h2>
+            <h2 style={{color: 'white', fontSize: '60px', textAlign: 'center', textShadow: '-1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black'}}>SKKU</h2>
+        <h2 style={{color: 'white', fontSize: '60px', textAlign: 'center', textShadow: '-1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black'}}>GLOBAL CHALLENGE</h2>
         </div>
 
         {/* <div style={{display: 'flex', flexDirection: 'column'}}>
