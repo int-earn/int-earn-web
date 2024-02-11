@@ -51,8 +51,4 @@ jobs:
             build s3://$S3_BUCKET_NAME
 
       - name: Invalidate CloudFront Cache
-        uses: chetan/invalidate-cloudfront-action@master
-        env:
-          AWS_DISTRIBUTION: ${{ secrets.AWS_DISTRIBUTION_ID }}
-          PATHS: '/index.html'
-        continue-on-error: true
+        run: aws cloudfront create-invalidation --distribution-id ${{secrets.DISTRIBUTION_ID}} --paths "/*"
