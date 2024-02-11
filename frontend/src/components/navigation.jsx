@@ -18,7 +18,7 @@ export const Navigation = (props) => {
             <span className="icon-bar"></span>{" "}
             <span className="icon-bar"></span>{" "}
           </button>
-          <a className="navbar-brand page-scroll" href="#page-top" style={{fontFamily: 'var(--font-nanum-light)', fontSize: '20px'}}>
+          <a className="navbar-brand page-scroll" href="#page-top" style={{fontFamily: 'var(--font-nanum-light)', fontSize: '16px'}}>
             int earn;들이 남기는 마지막 잎새
           </a>{" "}
         </div>
