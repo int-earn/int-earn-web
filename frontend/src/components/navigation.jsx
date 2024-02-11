@@ -18,7 +18,7 @@ export const Navigation = (props) => {
             <span className="icon-bar"></span>{" "}
             <span className="icon-bar"></span>{" "}
           </button>
-          <a className="navbar-brand page-scroll" href="#page-top" style={{fontFamily: 'var(--font-nanum-light)'}}>
+          <a className="navbar-brand page-scroll" href="#page-top" style={{fontFamily: 'var(--font-nanum-light)', fontSize: '20px'}}>
             int earn;들이 남기는 마지막 잎새
           </a>{" "}
         </div>
@@ -36,17 +36,17 @@ export const Navigation = (props) => {
             {/* <Link to='/'>Features</Link> */}
             <li>
               <a href="/#about" className="page-scroll">
-                About us
+                웹페이지 소개
               </a>
             </li>
             <li>
               <a href="/#service" className="page-scroll">
-                Board
+                자유게시판
               </a>
             </li>
             <li>
               <a href="/#portfolio" className="page-scroll">
-                Archive
+                아카이브
               </a>
             </li>
             {/* <li>
@@ -61,7 +61,7 @@ export const Navigation = (props) => {
             </li> */}
             <li>
               <a href="/#contact" className="page-scroll">
-                Login
+                로그인
               </a>
             </li>
           </ul>

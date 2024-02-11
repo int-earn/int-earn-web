@@ -39,17 +39,24 @@ export const Services = (props) => {
     //     </div>
     //   </div>
     // </div>
-    <div id="board">
+    <div id="service" style={{paddingTop: '100px'}}>
     <div className="container">
       <div className='row'>
+      <div style={{display: 'flex'}}>
+      <h2 style={{marginLeft: '15px'}}>BOARD</h2>
+      <div style={{marginLeft: '15px', alignSelf: 'end', marginBottom: '25px', borderBottom: '1px solid', paddingBottom: '2px'}}>View All </div>
+      </div>
+        <div className='col-xs-12 col-md-4' style={{borderTop: '1px solid #ccc'}}>
+          
+        </div>
         <div
-          className='col-xs-12 col-md-6'
-          style={{padding: '20px', marginTop: 0,backgroundColor: 'black', paddingBottom: '45px'}}>
+          className='col-xs-12 col-md-8'
+          style={{marginTop: 0, paddingBottom: '45px', padding: 0}}>
             {/* <h2 className='text-center'>BOARD</h2> */}
-          <div className='col-xs-12 col-md-10' style={{padding: '20px', backgroundColor: '#F1F2F2', color: 'black'}}>
+          <div style={{padding: '30px', backgroundColor: '#F1F2F2', color: 'black', borderTop: '1px solid #ccc'}}>
           
           {board.map(b => (
-            <div style={{display: 'grid', gridTemplateColumns: '5fr 50px', padding: '7px 0', fontSize: '14px'}}>
+            <div style={{display: 'grid', gridTemplateColumns: '5fr 50px', padding: '7px 0', fontSize: '16px', fontFamily: 'var(--font-nanum-light)'}}>
               {/* <div></div> */}
               <div>{b.title}</div>
               <div>{b.date}</div>
@@ -57,27 +64,6 @@ export const Services = (props) => {
           ))}
           </div>
         </div>
-        <div
-          className='col-xs-12 col-md-6'
-          style={{padding: '20px', marginTop: 0,backgroundColor: 'black', paddingBottom: '45px'}}>
-            {/* <h2 className='text-center'>Q&A</h2> */}
-          <div className='col-xs-12 col-md-10' style={{padding: '20px', backgroundColor: '#F1F2F2', color: 'black'}}>
-          {board.map(b => (
-            <div style={{display: 'grid', gridTemplateColumns: '5fr 50px', padding: '7px 0', fontSize: '14px'}}>
-              {/* <div></div> */}
-              <div>{b.title}</div>
-              <div>{b.date}</div>
-            </div>
-          ))}
-          </div>
-        </div>
-        {/* <div className='col-xs-12 col-md-6' style={{backgroundColor: 'black', padding: '40px'}}>
-          {board.map(b => (
-              <div style={{display: 'flex', color: 'black', padding: '7px 0'}}>
-                _
-              </div>
-            ))}
-        </div> */}
       </div>
     </div>
     </div>
