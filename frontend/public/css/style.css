@@ -297,15 +297,17 @@ header .intro-text {
   padding-right: 8px;
 }
 #about img {
-  width: 520px;
+  /* width: 520px;  */
+  width: 100%;
   margin-top: 10px;
   background: #fff;
   border-right: 0;
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.06);
 }
 #about p {
-  line-height: 24px;
+  line-height: 26px;
   margin: 30px 0;
+  font-size: 15px;
 }
 /* Services Section */
 #services {
