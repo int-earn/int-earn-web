@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,5 +48,11 @@ public class UserController {
         } catch (DataIntegrityViolationException e) {
             throw new CustomValidationException("아이디 또는 닉네임이 중복됩니다.");
         }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UserDto.LoginRequest loginRequest) throws NoSuchAlgorithmException {
+        UserDto.AuthResponse response = userService.login(loginRequest);
+        return new ResponseEntity<>(new CMRespDto<>(1, "로그인 완료", response), HttpStatus.OK);
     }
 }
