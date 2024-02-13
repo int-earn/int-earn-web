@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 
 export const Services = (props) => {
+  const navigate = useNavigate();
   const board = [
     {"id": 1, "title": "글로벌 챌린지 참가자 분들께 질문이 있습니다!", "date": "02.11"},
     {"id": 2, "title": "글챌 지원할 때", "date": "02.11"},
@@ -13,38 +15,22 @@ export const Services = (props) => {
     {"id": 5, "title": "글로벌 챌린지 참가자 분들께 질문이 있습니다!", "date": "02.07"},
     {"id": 6, "title": "글로벌 챌린지 참가자 분들께 질문이 있습니다!", "date": "02.07"},
   ]
+
+  const handleBtnClick = () => {
+    navigate('/board')
+    window.scrollTo(0, 0); 
+  }
   return (
-    // <div id="services" className="text-center">
-    //   <div className="container">
-    //     <div className="section-title col-xs-12">
-    //       <h2>Board</h2>
-    //       <p>
-    //         Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed
-    //         dapibus leonec.
-    //       </p>
-    //     </div>
-    //     <div className="row">
-    //       {props.data
-    //         ? props.data.map((d, i) => (
-    //             <div key={`${d.name}-${i}`} className="col-xs-12 col-md-4">
-    //               {" "}
-    //               <i className={d.icon}></i>
-    //               <div className="service-desc">
-    //                 <h3>{d.name}</h3>
-    //                 <p>{d.text}</p>
-    //               </div>
-    //             </div>
-    //           ))
-    //         : "loading"}
-    //     </div>
-    //   </div>
-    // </div>
     <div id="service" style={{paddingTop: '100px'}}>
     <div className="container">
       <div className='row'>
       <div style={{display: 'flex'}}>
       <h2 style={{marginLeft: '15px'}}>BOARD</h2>
-      <div style={{marginLeft: '15px', alignSelf: 'end', marginBottom: '25px', borderBottom: '1px solid', paddingBottom: '2px'}}>View All </div>
+      <div 
+        onClick={handleBtnClick}
+        style={{marginLeft: '15px', alignSelf: 'end', marginBottom: '25px', borderBottom: '1px solid', paddingBottom: '2px', cursor: 'pointer'}}>
+        View All 
+      </div>
       </div>
         <div className='col-xs-12 col-md-4' style={{borderTop: '1px solid #ccc'}}>
           
