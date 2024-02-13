@@ -42,7 +42,7 @@ export const Services = (props) => {
           <div className='test' style={{padding: '30px', color: 'black', borderTop: '1px solid #ccc'}}>
           
           {board.map(b => (
-            <div style={{display: 'grid', gridTemplateColumns: '5fr 50px', padding: '7px 0', fontSize: '16px', fontFamily: 'var(--font-nanum-light)'}}>
+            <div style={{display: 'grid', gridTemplateColumns: '5fr 50px', padding: '12px 0', fontSize: '16px', fontFamily: 'var(--font-nanum-light)'}}>
               {/* <div></div> */}
               <div className='title' style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>{b.title}</div>
               <div className='title' style={{marginLeft: '5px'}}>{b.date}</div>
