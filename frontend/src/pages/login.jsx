@@ -1,7 +1,10 @@
 import React from "react";
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
+  const navigate = useNavigate();
+
   return (
     <div style={{
       display: 'flex', 
@@ -30,11 +33,11 @@ export const Login = () => {
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
-            width: '100%',
+            width: '320px',
             marginTop: '30px',
             marginRight: '5px'
           }}>
-            <SmBtn style={{borderRight: '1px solid'}}>회원가입</SmBtn>
+            <SmBtn onClick={() => navigate('/join')} style={{borderRight: '1px solid'}}>회원가입</SmBtn>
             <SmBtn style={{borderRight: '1px solid'}}>아이디찾기</SmBtn>
             <SmBtn style={{paddingLeft: '13px'}}>비밀번호찾기</SmBtn>
           </div>
@@ -44,12 +47,14 @@ export const Login = () => {
 };
 
 const Input = styled.input`
-  border: 1px solid ;
+  border: 1px solid #303030;
   width: 300px;
   height: 50px;
   margin-bottom: 8px;
   padding: 0 7px 0 7px;
   color: black;
+  border-radius: 0;
+  outline: none;
 
   &:focus {
     outline: none;
