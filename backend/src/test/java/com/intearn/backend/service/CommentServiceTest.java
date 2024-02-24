@@ -61,9 +61,45 @@ class CommentServiceTest {
 
     @Test
     void updateComment() {
+        Board board = new Board();
+        board.setTitle("제목");
+        board.setContent("내용");
+
+        Board newBoard = boardService.createBoard(board);
+
+        Comment comment = new Comment();
+        comment.setContent("댓글 내용");
+        comment.setBoard(newBoard);
+
+        Comment newComment = commentService.createComment(comment);
+
+        String modifiedComment = "수정된 댓글 내용.";
+        newComment.setContent(modifiedComment);
+        commentService.updateComment(newComment);
+
+        List<Comment> commentsByBoard = commentService.getCommentsByBoard(newBoard);
+
+        assertEquals(modifiedComment, commentsByBoard.get(0).getContent());
     }
 
     @Test
     void deleteComment() {
+        Board board = new Board();
+        board.setTitle("제목");
+        board.setContent("내용");
+
+        Board newBoard = boardService.createBoard(board);
+
+        Comment comment = new Comment();
+        comment.setContent("댓글 내용");
+        comment.setBoard(newBoard);
+
+        Comment newComment = commentService.createComment(comment);
+
+        commentService.deleteComment(newComment.getId());
+
+        List<Comment> commentsByBoard = commentService.getCommentsByBoard(newBoard);
+
+        assertEquals(0, commentsByBoard.size());
     }
 }
