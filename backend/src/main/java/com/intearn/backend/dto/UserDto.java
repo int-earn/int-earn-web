@@ -58,4 +58,12 @@ public class UserDto {
             this.token = token;
         }
     }
+
+    @Getter
+    public static class PutRequest {
+        @NotBlank
+        private String nickname;
+        @NotBlank
+        private String username;
+    }
 }

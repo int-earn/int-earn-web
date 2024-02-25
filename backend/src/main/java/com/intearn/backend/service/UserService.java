@@ -60,4 +60,11 @@ public class UserService {
         return new UserDto.AuthResponse(jwtToken);
 
     }
+
+    @Transactional
+    public void editUser(UserDto.PutRequest dto, User user) {
+        user.setNickname(dto.getNickname());
+        user.setUsername(dto.getUsername());
+        userRepository.save(user);
+    }
 }
