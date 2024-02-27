@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +44,7 @@ public class CommentService {
      */
     @Transactional
     public Comment createComment(Comment comment) {
+        comment.setCreatedDate(LocalDateTime.now());
         return commentRepository.save(comment);
     }
 
@@ -55,11 +57,19 @@ public class CommentService {
     }
 
     /**
+     * id 값으로 댓글 삭제
+     */
+    @Transactional
+    public void deleteCommentById(Long id) {
+        commentRepository.deleteById(id);
+    }
+
+    /**
      * 댓글 삭제
      */
     @Transactional
-    public void deleteComment(Long id) {
-        commentRepository.deleteById(id);
+    public void deleteComment(Comment comment) {
+        commentRepository.delete(comment);
     }
 }
 
