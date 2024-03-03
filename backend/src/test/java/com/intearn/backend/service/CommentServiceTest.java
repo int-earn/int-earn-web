@@ -96,7 +96,7 @@ class CommentServiceTest {
 
         Comment newComment = commentService.createComment(comment);
 
-        commentService.deleteComment(newComment.getId());
+        commentService.deleteComment(newComment);
 
         List<Comment> commentsByBoard = commentService.getCommentsByBoard(newBoard);
 

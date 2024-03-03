@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +36,8 @@ public class BoardService {
      */
     @Transactional
     public Board createBoard(Board board) {
+        // 게시글 작성 시간을 Service 계층에서 관리
+        board.setCreatedDate(LocalDateTime.now());
         return boardRepository.save(board);
     }
 
@@ -43,6 +46,8 @@ public class BoardService {
      */
     @Transactional
     public Board updateBoard(Board board) {
+        // 게시글 수정 시간을 Service 계층에서 관리
+        board.setModifiedDate(LocalDateTime.now());
         return boardRepository.save(board);
     }
 
