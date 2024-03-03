@@ -1,7 +1,10 @@
 import React from "react";
 import styled from 'styled-components';
+import { AiFillPlusCircle } from "react-icons/ai";
+import { useNavigate } from 'react-router-dom';
 
 export const Board = () => {
+    const navigate = useNavigate();
     const tempBoard = [
         {"id": 1, "title": "글로벌 챌린지 참가자 분들께 질문이 있습니다!", "date": "02.11", "content": "본문 내용입니다. 임시 본문 내용입니다.", "nickname": "데이터사이언스융합전공 22 홍길동"},
         {"id": 2, "title": "글챌 지원할 때", "date": "02.11", "content": "본문 내용입니다. 임시 본문 ", "nickname": "데이터사이언스융합전공 21 홍길동"},
@@ -14,11 +17,19 @@ export const Board = () => {
         {"id": 5, "title": "글로벌 챌린지 참가자 분들께 질문이 있습니다!", "date": "02.07", "content": "본문 내용입니다. 임시 본문 내용입니다", "nickname": "데이터사이언스융합전공 22 홍길동"},
         {"id": 6, "title": "글로벌 챌린지 참가자 분들께 질문이 있습니다!", "date": "02.07", "content": "본문 내용입니다. 임시 본문 내용입니다.", "nickname": "인공지능융합전공 20 홍길동"},
     ]
+
+    const handleBtnClick = () => {
+        navigate('/addPost');
+    }
+
   return (
     <Container className='container'>
         {/* <div className='col-xs-12 col-md-3'></div> */}
         <InnerContainer>
-        <h2 style={{width: '90vw'}}>BOARD</h2>
+        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <h2 style={{width: '90vw'}}>BOARD</h2>
+            <AiFillPlusCircle onClick={handleBtnClick} style={{width: '45px', height: '45px', cursor: 'pointer'}} />
+        </div>
             <div className='col-xs-12 col-md-4' style={{borderTop: '2px solid black'}}>
             
             </div>
