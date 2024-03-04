@@ -5,6 +5,7 @@ import Join from '../pages/join'
 import { Login } from '../pages/login'
 import { Board } from '../pages/board'
 import AddPost from '../pages/addPost'
+import ViewPost from '../pages/viewPost'
 
 export default function Router() {
     return (
@@ -15,6 +16,7 @@ export default function Router() {
                 <Route path="/join" element={<Join />} />
                 <Route path="/board" element={<Board />} />
                 <Route path="/addPost" element={<AddPost />} />
+                <Route path="/viewPost/:id" element={<ViewPost />} />
             </Routes>
         </BrowserRouter>
     )

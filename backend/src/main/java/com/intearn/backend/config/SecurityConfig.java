@@ -21,7 +21,8 @@ public class SecurityConfig {
     private static final String[] PERMIT_API_URL_ARRAY = {
             //"/**", // 개발 시 매번 token 넣어야 하는 번거로움 없애기 위해 임시로 추가.
             "/api/user/save",
-            "/api/user/login"
+            "/api/user/login",
+            "/api/board/title"
     };
 
     @Bean

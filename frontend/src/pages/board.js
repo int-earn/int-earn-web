@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from 'styled-components';
 import { AiFillPlusCircle } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom';
+import { AxiosC } from '../common/axiosC';
+import { API_URL } from '../config';
+import { msg403 } from '../common/function';
+import { useRecoilState } from 'recoil';
+import { boardState } from '../atoms/board';
 
 export const Board = () => {
     const navigate = useNavigate();
+    const [board, setBoard] = useRecoilState(boardState);
+
     const tempBoard = [
         {"id": 1, "title": "글로벌 챌린지 참가자 분들께 질문이 있습니다!", "date": "02.11", "content": "본문 내용입니다. 임시 본문 내용입니다.", "nickname": "데이터사이언스융합전공 22 홍길동"},
         {"id": 2, "title": "글챌 지원할 때", "date": "02.11", "content": "본문 내용입니다. 임시 본문 ", "nickname": "데이터사이언스융합전공 21 홍길동"},
@@ -22,7 +29,25 @@ export const Board = () => {
         navigate('/addPost');
     }
 
-  return (
+    useEffect(() => {
+        const loadBoards = async() => {
+            try {
+                const axiosInstance = await AxiosC();
+                const result = await axiosInstance.get(`${API_URL}/api/board`);
+                setBoard(result.data);
+            } catch (error) {
+                if (error.response.status === 403) {
+                    alert(msg403);
+                    navigate('/login');
+                } else {
+                    console.log(error);
+                }
+            }
+        }
+        loadBoards();
+    }, [])
+
+    return (
     <Container className='container'>
         {/* <div className='col-xs-12 col-md-3'></div> */}
         <InnerContainer>
@@ -36,23 +61,27 @@ export const Board = () => {
             <div
                 className='col-xs-12 col-md-8' 
                 style={{borderTop: '2px solid black', padding: '0 0 30px 0'}}>
-                    {tempBoard.map(b => (
-                        <ContentBox>
-                        <Title>{b.title}</Title>
-                        <Content>{b.content}</Content>
-                        <div className='col-xs-12 col-md-7'></div>
-                        <DateUser className='col-xs-12 col-md-5'>
-                            <div></div>
-                            <div><span style={{marginRight: '7px', paddingRight: '7px', borderRight: '1px solid'}}>{b.date}</span>{b.nickname}</div>
-                            {/* <div>{b.nickname}</div> */}
-                        </DateUser>
+                    {board.length > 0 &&
+                    [...board].reverse().map((b) => (
+                        <ContentBox key={b.id}>
+                            <Title onClick={() => navigate(`/viewPost/${b.id}`)}>{b.title}</Title>
+                            <Content onClick={() => navigate(`/viewPost/${b.id}`)}>{b.content}</Content>
+                            <div className='col-xs-12 col-md-7'></div>
+                            <DateUser className='col-xs-12 col-md-5'>
+                                <div></div>
+                                <div><span style={{marginRight: '7px', paddingRight: '7px', borderRight: '1px solid'}}>
+                                    {b.createdDate[1] < 10 ? '0'+b.createdDate[1] : b.createdDate[1]}.
+                                    {b.createdDate[2] < 10 ? '0'+b.createdDate[2] : b.createdDate[2]}
+                                    </span>{b.nickname}
+                                </div>
+                            </DateUser>
                         </ContentBox>
                     ))}
             </div>
         </InnerContainer>
         {/* <div className='col-xs-12 col-md-3'></div> */}
     </Container>
-  );
+    );
 };
 
 const Container = styled.div`
@@ -64,7 +93,7 @@ const Container = styled.div`
 `
 
 const InnerContainer = styled.div`
-width: 85vw;
+width: 75vw;
 height: 80vh;
 margin-top: 130px;
 `
@@ -84,10 +113,12 @@ font-weight: bold;
 font-size: 17px;
 color: black;
 padding-bottom: 4px;
+cursor: pointer;
 `
 
 const Content = styled.div`
 font-size: 14px;
+cursor: pointer;
 `
 
 const DateUser = styled.div`
