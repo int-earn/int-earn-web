@@ -30,6 +30,12 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @Column
+    private String major;
+
+    @Column
+    private String studentId;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 

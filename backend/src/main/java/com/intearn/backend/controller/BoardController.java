@@ -59,6 +59,17 @@ public class BoardController {
     }
 
     /**
+     * 게시글 제목 조회
+     */
+    @GetMapping("/api/board/title")
+    public List<BoardTitleResponse> showBoardTitle () {
+        List<Board> allBoards = boardService.getAllBoards();
+        return allBoards.stream()
+                .map(m -> new BoardTitleResponse(m.getId(), m.getTitle(), m.getCreatedDate()))
+                .collect(Collectors.toList());
+    }
+
+    /**
      * 게시글 작성
      */
     @PostMapping("/api/board")

@@ -37,6 +37,13 @@ public class UserController {
         return new ResponseEntity<>(new CMRespDto<>(1, "전체 유저 조회 완료", users), HttpStatus.OK);
     }
 
+    @GetMapping("")
+    public ResponseEntity<?> getUser(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        User user = principalDetails.getUser();
+        UserDto.Response response = userService.getUser(user.getId());
+        return new ResponseEntity<>(new CMRespDto<>(1, "유저 조회 완료", response), HttpStatus.OK);
+    }
+
     @PostMapping("/save")
     public ResponseEntity<?> saveUser(@Valid @RequestBody UserDto.SignUpForm signUpForm, BindingResult bindingResult) {
         Map<String, String> errorMap = new HashMap<>();
