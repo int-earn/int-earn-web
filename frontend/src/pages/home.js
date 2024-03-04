@@ -14,9 +14,11 @@ import { Footer } from '../components/footer';
 import styled from 'styled-components';
 import { API_URL } from '../config';
 import axios from 'axios';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { userState } from '../atoms/user';
 import { useNavigate } from 'react-router-dom';
+import { msg403 } from '../common/function';
+import { AxiosC } from '../common/axiosC';
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
     speed: 1000,
@@ -27,10 +29,20 @@ export default function Home() {
     const navigate = useNavigate();
     const [landingPageData, setLandingPageData] = useState({});
     const [boardTitle, setBoardTitle] = useState([]);
-    const isAuthenticated = useRecoilValue(userState).isAuthenticated;
+    //const isAuthenticated = useRecoilValue(userState).isAuthenticated;
+    const [user, setUser] = useRecoilState(userState);
+
+    const handleError = (error) => {
+      if (error.response && error.response.status === 403) {
+          alert(msg403);
+          navigate('/login');
+      } else {
+          console.log(error);
+      }
+    }
 
     const handleBoardBtnClick = () => {
-      if (!isAuthenticated) {
+      if (!user.isAuthenticated) {
         alert('로그인 먼저 진행해주세요');
         navigate('/login')
       } else {
@@ -38,7 +50,7 @@ export default function Home() {
       }
     }
     const handlePostClick = (id) => {
-      if (!isAuthenticated) {
+      if (!user.isAuthenticated) {
         alert('로그인 먼저 진행해주세요');
         navigate('/login')
       } else {
@@ -52,12 +64,29 @@ export default function Home() {
           const result = await axios.get(`${API_URL}/api/board/title`)
           setBoardTitle(result.data);
         } catch (error) {
-          console.log(error);
+          handleError(error);
         }
       }
       loadBoardTitle();
       setLandingPageData(JsonData);
     }, []);
+
+    useEffect(() => {
+      const loadUser = async () => {
+        try {
+          const axiosInstance = await AxiosC();
+          const result = await axiosInstance.get(`${API_URL}/api/user`)
+          setUser(prev => ({
+            ...prev,
+            user: result.data.data,
+            isAuthenticated: true,
+          }));
+        } catch (error) {
+          handleError(error);
+        }
+      }
+      loadUser();
+    }, [])
     return (
         <div>
         {/* <TestHeader />
@@ -172,7 +201,7 @@ font-family: var(--font-nanum-light);
 }
 
 .board-title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   white-space: nowrap;
   overflow: hidden;

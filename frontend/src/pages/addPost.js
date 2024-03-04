@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { AxiosC } from '../common/axiosC';
 import { API_URL } from '../config';
 import { useNavigate } from 'react-router-dom';
+import { msg403 } from '../common/function';
 
 export default function AddPost() {
     const navigate = useNavigate();
@@ -37,7 +38,7 @@ export default function AddPost() {
             
         } catch (error) {
             if (error.response.status === 403) {
-                alert('로그인 기간 만료.')
+                alert(msg403)
                 navigate('/login');
             } else {
                 console.log(error);

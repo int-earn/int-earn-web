@@ -6,6 +6,7 @@ import { Login } from '../pages/login'
 import { Board } from '../pages/board'
 import AddPost from '../pages/addPost'
 import ViewPost from '../pages/viewPost'
+import EditPost from '../pages/editPost'
 
 export default function Router() {
     return (
@@ -17,6 +18,7 @@ export default function Router() {
                 <Route path="/board" element={<Board />} />
                 <Route path="/addPost" element={<AddPost />} />
                 <Route path="/viewPost/:id" element={<ViewPost />} />
+                <Route path="/editPost/:id" element={<EditPost />} />
             </Routes>
         </BrowserRouter>
     )
