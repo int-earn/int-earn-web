@@ -36,7 +36,7 @@ export const Login = () => {
               user: data,
               isAuthenticated: true,
             }))
-            navigate('/')
+            navigate(-1)
           } else {
             console.log(data);
           }

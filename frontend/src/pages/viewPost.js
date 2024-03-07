@@ -45,7 +45,7 @@ export default function ViewPost() {
 
     const handleError = (error) => {
         if (error.response.status === 403) {
-            alert(msg403);
+            //alert(msg403);
             navigate('/login');
         } else {
             console.log(error);

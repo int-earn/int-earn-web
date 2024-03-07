@@ -7,6 +7,7 @@ import { Board } from '../pages/board'
 import AddPost from '../pages/addPost'
 import ViewPost from '../pages/viewPost'
 import EditPost from '../pages/editPost'
+import MyPage from '../pages/myPage'
 
 export default function Router() {
     return (
@@ -19,6 +20,7 @@ export default function Router() {
                 <Route path="/addPost" element={<AddPost />} />
                 <Route path="/viewPost/:id" element={<ViewPost />} />
                 <Route path="/editPost/:id" element={<EditPost />} />
+                <Route path="/myPage" element={<MyPage />} />
             </Routes>
         </BrowserRouter>
     )

@@ -31,7 +31,8 @@ public class User implements UserDetails {
     private String password;
 
     @Column
-    private String major;
+    @Enumerated(EnumType.STRING)
+    private Major major;
 
     @Column
     private String studentId;

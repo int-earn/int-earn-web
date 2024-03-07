@@ -30,10 +30,10 @@ export default function Home() {
     const [landingPageData, setLandingPageData] = useState({});
     const [boardTitle, setBoardTitle] = useState([]);
     //const isAuthenticated = useRecoilValue(userState).isAuthenticated;
-    const [user, setUser] = useRecoilState(userState);
 
     const handleError = (error) => {
       if (error.response && error.response.status === 403) {
+        console.log(error)
           alert(msg403);
           navigate('/login');
       } else {
@@ -42,20 +42,10 @@ export default function Home() {
     }
 
     const handleBoardBtnClick = () => {
-      if (!user.isAuthenticated) {
-        alert('로그인 먼저 진행해주세요');
-        navigate('/login')
-      } else {
-        navigate('/board')
-      }
+      navigate('/board');
     }
     const handlePostClick = (id) => {
-      if (!user.isAuthenticated) {
-        alert('로그인 먼저 진행해주세요');
-        navigate('/login')
-      } else {
-        navigate(`/viewPost/${id}`)
-      }
+      navigate(`/viewPost/${id}`);
     }
 
     useEffect(() => {
@@ -71,7 +61,7 @@ export default function Home() {
       setLandingPageData(JsonData);
     }, []);
 
-    useEffect(() => {
+    /*useEffect(() => {
       const loadUser = async () => {
         try {
           const axiosInstance = await AxiosC();
@@ -86,7 +76,7 @@ export default function Home() {
         }
       }
       loadUser();
-    }, [])
+    }, [])*/
     return (
         <div>
         {/* <TestHeader />
@@ -134,6 +124,7 @@ export default function Home() {
 
           <div className='col-xs-12 col-md-5 main-each-box'>
             <h2 className='main-h2'>Archive</h2>
+            
           </div>
           <Empty className='d-none d-md-block col-md-1' style={{height: '30px', marginBottom: '20px'}}></Empty>
         </Main>
