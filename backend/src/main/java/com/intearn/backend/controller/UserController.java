@@ -1,7 +1,5 @@
 package com.intearn.backend.controller;
 
-import com.intearn.backend.config.PrincipalDetails;
-import com.intearn.backend.domain.User;
 import com.intearn.backend.dto.CMRespDto;
 import com.intearn.backend.dto.UserDto;
 import com.intearn.backend.exception.CustomValidationException;
@@ -12,8 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -37,13 +33,6 @@ public class UserController {
         return new ResponseEntity<>(new CMRespDto<>(1, "전체 유저 조회 완료", users), HttpStatus.OK);
     }
 
-    @GetMapping("")
-    public ResponseEntity<?> getUser(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        User user = principalDetails.getUser();
-        UserDto.Response response = userService.getUser(user.getId());
-        return new ResponseEntity<>(new CMRespDto<>(1, "유저 조회 완료", response), HttpStatus.OK);
-    }
-
     @PostMapping("/save")
     public ResponseEntity<?> saveUser(@Valid @RequestBody UserDto.SignUpForm signUpForm, BindingResult bindingResult) {
         Map<String, String> errorMap = new HashMap<>();
@@ -65,12 +54,5 @@ public class UserController {
     public ResponseEntity<?> login(@RequestBody UserDto.LoginRequest loginRequest) throws NoSuchAlgorithmException {
         UserDto.AuthResponse response = userService.login(loginRequest);
         return new ResponseEntity<>(new CMRespDto<>(1, "로그인 완료", response), HttpStatus.OK);
-    }
-
-    @PutMapping("")
-    public ResponseEntity<?> editUser(@RequestBody UserDto.PutRequest dto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        User user = principalDetails.getUser();
-        userService.editUser(dto, user);
-        return new ResponseEntity<>(new CMRespDto<>(1, "회원 정보 수정 완료", null), HttpStatus.OK);
     }
 }

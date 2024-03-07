@@ -1,21 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { userState } from '../atoms/user';
-import { removeCookie } from '../common/Cookie';
 
 export const Navigation = (props) => {
-  const [userAtom, setUserAtom] = useRecoilState(userState);
-
-  const handleLogout = () => {
-    removeCookie('accessToken');
-    setUserAtom(prev => ({
-      ...prev,
-      user: null,
-      isAuthenticated: false,
-    }))
-  }
-
   return (
     <nav id="menu" className="navbar navbar-default navbar-fixed-top">
       <div className="container">
@@ -74,15 +60,9 @@ export const Navigation = (props) => {
               </a>
             </li> */}
             <li>
-              {userAtom.isAuthenticated ?
-                <div onClick={handleLogout} className='page-scroll'>
-                  마이페이지
-                </div>
-                : 
-                <a href="/login" className="page-scroll">
-                  로그인
-                </a>
-              }
+              <a href="/login" className="page-scroll">
+                로그인
+              </a>
             </li>
           </ul>
         </div>
