@@ -1,5 +1,7 @@
 package com.intearn.backend.config;
 
+import com.intearn.backend.domain.User;
+import com.intearn.backend.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,6 +26,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
+    private final UserRepository userRepository;
+
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
@@ -38,9 +42,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) { // if user is not connected yet
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+            User user = userRepository.findByUsername(username).orElseThrow();
+            PrincipalDetails principalDetails = new PrincipalDetails(user);
             if (jwtService.isTokenValid(jwt, userDetails)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                        userDetails,
+                        principalDetails,
                         null,
                         userDetails.getAuthorities()
                 );
