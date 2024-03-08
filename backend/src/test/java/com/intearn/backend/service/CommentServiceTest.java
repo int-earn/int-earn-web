@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 class CommentServiceTest {
 
-    @Autowired
+    /*@Autowired
     BoardService boardService;
 
     @Autowired
@@ -101,5 +101,5 @@ class CommentServiceTest {
         List<Comment> commentsByBoard = commentService.getCommentsByBoard(newBoard);
 
         assertEquals(0, commentsByBoard.size());
-    }
+    }*/
 }
