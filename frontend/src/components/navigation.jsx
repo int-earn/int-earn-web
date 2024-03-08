@@ -1,7 +1,35 @@
-import React from "react";
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { getCookie, removeCookie } from '../common/Cookie';
 
 export const Navigation = (props) => {
+  const [hasCookie, setHasCookie] = useState(false);
+  const [curPath, setCurPath] = useState('/');
+
+  const handleLogout = () => {
+    removeCookie('accessToken');
+    /*setUserAtom(prev => ({
+      ...prev,
+      user: null,
+      isAuthenticated: false,
+    }))*/
+  }
+
+  /*useEffect(() => {
+    const func = async () => {
+      // 현재 화면이 로그인 화면이면 token=false로 표시.
+      setCurPath(window.location.pathname);
+
+      //removeCookie('accessToken');
+      const token = await getCookie('accessToken');
+      if (token === undefined) {
+        setHasCookie(false);
+      } else {
+        setHasCookie(true);
+      }
+    }
+    func();
+  }, [])*/
+
   return (
     <nav id="menu" className="navbar navbar-default navbar-fixed-top">
       <div className="container">
@@ -35,7 +63,7 @@ export const Navigation = (props) => {
             </li> */}
             {/* <Link to='/'>Features</Link> */}
             <li>
-              <a href="/#about" className="page-scroll">
+              <a href="/about" className="page-scroll">
                 웹페이지 소개
               </a>
             </li>
@@ -45,7 +73,7 @@ export const Navigation = (props) => {
               </a>
             </li>
             <li>
-              <a href="/#portfolio" className="page-scroll">
+              <a href="/archive" className="page-scroll">
                 아카이브
               </a>
             </li>
@@ -60,9 +88,15 @@ export const Navigation = (props) => {
               </a>
             </li> */}
             <li>
-              <a href="/login" className="page-scroll">
-                로그인
-              </a>
+              {/* {hasCookie ?  */}
+                <a href="/myPage" className='page-scroll'>
+                  마이페이지
+                </a>
+                {/* : 
+                <a href="/login" className="page-scroll">
+                  로그인
+                </a>
+              } */}
             </li>
           </ul>
         </div>
