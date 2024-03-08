@@ -17,6 +17,7 @@ public class ArchiveDto {
         private Long userId;
         private String nickname;
         //private List img;
+        private String img;
     }
 
     @Data

@@ -29,6 +29,8 @@ public class Archive {
 
     private LocalDateTime modifiedDate;
 
+    private String imgId;
+
 //    @OneToMany(mappedBy = "archive", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<Img> img = new ArrayList<>();
 
