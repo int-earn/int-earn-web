@@ -51,7 +51,7 @@ export default function Home() {
     useEffect(() => {
       const loadBoardTitle = async () => {
         try {
-          console.log(API_URL)
+          console.log('test')
           const result = await axios.get(`${API_URL}/api/board/title`)
           setBoardTitle(result.data);
         } catch (error) {
