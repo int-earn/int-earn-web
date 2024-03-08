@@ -72,6 +72,18 @@ export default function EditArchive() {
                 const result = await axiosInstance.get(`${API_URL}/api/archive/${id}`);
                 //setData(result.data);
                 setArchiveInput(result.data)
+
+                // Convert base64 string to buffer
+                const buffer = Buffer.from(result.data.img, 'base64');
+
+                // Create a Blob from the buffer
+                const blob = new Blob([buffer], { type: 'image/jpeg' });
+
+                // Create a File from the Blob
+                const file = new File([blob], 'filename.jpg', { type: 'image/jpeg' });
+
+                // Now you can use the file object
+                setImg(file);
             } catch (error) {
                 if (error.response.status === 403) {
                     alert(msg403);
