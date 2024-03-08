@@ -25,6 +25,12 @@ jobs:
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
 
+      - name: Generate Environment Variables File for Production
+        run: |
+          echo "REACT_APP_IP=$REACT_APP_IP" >> .env.production
+        env:
+          REACT_APP_IP: ${{ secrets.REACT_APP_IP }}
+
       - name: Install Dependencies
         working-directory: ./frontend
         run: yarn
