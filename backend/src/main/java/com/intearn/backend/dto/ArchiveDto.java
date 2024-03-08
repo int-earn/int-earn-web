@@ -16,7 +16,10 @@ public class ArchiveDto {
         private LocalDateTime modifiedDate;
         private Long userId;
         private String nickname;
+        private String major;
+        private String studentId;
         //private List img;
+        private String img;
     }
 
     @Data

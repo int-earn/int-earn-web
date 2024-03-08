@@ -16,6 +16,8 @@ public class BoardDto {
         private LocalDateTime modifiedDate;
         private Long userId;
         private String nickname;
+        private String major;
+        private String studentId;
     }
 
     @Data

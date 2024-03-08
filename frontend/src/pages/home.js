@@ -14,9 +14,11 @@ import { Footer } from '../components/footer';
 import styled from 'styled-components';
 import { API_URL } from '../config';
 import axios from 'axios';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { userState } from '../atoms/user';
 import { useNavigate } from 'react-router-dom';
+import { msg403 } from '../common/function';
+import { AxiosC } from '../common/axiosC';
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
     speed: 1000,
@@ -27,23 +29,23 @@ export default function Home() {
     const navigate = useNavigate();
     const [landingPageData, setLandingPageData] = useState({});
     const [boardTitle, setBoardTitle] = useState([]);
-    const isAuthenticated = useRecoilValue(userState).isAuthenticated;
+    //const isAuthenticated = useRecoilValue(userState).isAuthenticated;
 
-    const handleBoardBtnClick = () => {
-      if (!isAuthenticated) {
-        alert('로그인 먼저 진행해주세요');
-        navigate('/login')
+    const handleError = (error) => {
+      if (error.response && error.response.status === 403) {
+        console.log(error)
+          alert(msg403);
+          navigate('/login');
       } else {
-        navigate('/board')
+          console.log(error);
       }
     }
+
+    const handleBoardBtnClick = () => {
+      navigate('/board');
+    }
     const handlePostClick = (id) => {
-      if (!isAuthenticated) {
-        alert('로그인 먼저 진행해주세요');
-        navigate('/login')
-      } else {
-        navigate(`/viewPost/${id}`)
-      }
+      navigate(`/viewPost/${id}`);
     }
 
     useEffect(() => {
@@ -52,14 +54,31 @@ export default function Home() {
           const result = await axios.get(`${API_URL}/api/board/title`)
           setBoardTitle(result.data);
         } catch (error) {
-          console.log(error);
+          handleError(error);
         }
       }
       loadBoardTitle();
       setLandingPageData(JsonData);
     }, []);
+
+    /*useEffect(() => {
+      const loadUser = async () => {
+        try {
+          const axiosInstance = await AxiosC();
+          const result = await axiosInstance.get(`${API_URL}/api/user`)
+          setUser(prev => ({
+            ...prev,
+            user: result.data.data,
+            isAuthenticated: true,
+          }));
+        } catch (error) {
+          handleError(error);
+        }
+      }
+      loadUser();
+    }, [])*/
     return (
-        <div>
+        <div style={{marginBottom: '100px'}}>
         {/* <TestHeader />
         <About data={landingPageData.About} />
         <Services data={landingPageData.Services} />
@@ -70,10 +89,10 @@ export default function Home() {
         </Banner>
         <Main>
           <div className='main-margin'></div>
-          <Empty className='d-none d-md-block col-md-1' style={{height: '30px', marginBottom: '20px'}}></Empty>
+          <Empty className='d-none d-md-block col-md-1' style={{height: '30px', marginBottom: '0px'}}></Empty>
           <div className='col-xs-12 col-md-5'>
             <TopBox style={{display: 'flex', justifyContent: 'space-between', }}>
-              <h2 className='main-h2'>BOARD</h2>
+              <h2 className='main-h2' style={{marginBottom: '3px'}}>BOARD</h2>
               <Button onClick={handleBoardBtnClick}>View All</Button>
             </TopBox>
             <BoardBox>
@@ -103,8 +122,20 @@ export default function Home() {
             </BoardBox>
           </div>
 
-          <div className='col-xs-12 col-md-5 main-each-box'>
-            <h2 className='main-h2'>Archive</h2>
+          <div className='col-xs-12 col-md-5 main-each-box' style={{marginBottom: '150px'}}>
+            <TopBox2>
+              <h2 className='main-h2'>Archive</h2>
+              <Button onClick={() => navigate('/archive')}>View All</Button>
+            </TopBox2>
+            <div className='row'>
+              {JsonData.Gallery.map((img, i) => (
+                <div key={`${img.title}-${i}`} className='col-xs-12 col-sm-6 col-md-4 col-lg-4' style={{padding: '1px'}}>
+                  <img src={img.smallImage} alt={img.title} className='img-responsive' style={{height: '180px', width: '100%', objectFit: 'cover'}} />
+                </div>
+              ))
+
+              }
+            </div>
           </div>
           <Empty className='d-none d-md-block col-md-1' style={{height: '30px', marginBottom: '20px'}}></Empty>
         </Main>
@@ -116,7 +147,7 @@ export default function Home() {
 const Banner = styled.div`
 display: flex;
 background-color: #303030;
-height: 250px;
+height: 280px;
 padding-top: 130px;
 `
 
@@ -124,8 +155,14 @@ const TopBox = styled.div`
 display: flex;
 justify-content: space-between;
 border-bottom: 2px solid black;
-padding-bottom: 7px;
-margin-bottom: 7px;
+padding-bottom: 10px;
+margin-bottom: 16px;
+`
+const TopBox2 = styled.div`
+display: flex;
+justify-content: space-between;
+//padding-bottom: 7px;
+margin-bottom: 13px;
 `
 
 const Button = styled.button`
@@ -144,7 +181,7 @@ const Main = styled.div`
 background-color: white;
 
 .main-margin {
-  height: 40px;
+  height: 60px;
 }
 .main-h2 {
   //marginRight: 15px;
@@ -161,6 +198,7 @@ const Empty = styled.div`
 const BoardBox = styled.div`
 padding: 10px;
 font-family: var(--font-nanum-light);
+margin-bottom: 40px;
 
 .board-each {
   display: flex;
@@ -172,7 +210,7 @@ font-family: var(--font-nanum-light);
 }
 
 .board-title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   white-space: nowrap;
   overflow: hidden;

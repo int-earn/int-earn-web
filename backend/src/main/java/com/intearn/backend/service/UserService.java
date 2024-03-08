@@ -5,6 +5,7 @@ import com.intearn.backend.domain.User;
 import com.intearn.backend.dto.UserDto;
 import com.intearn.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -62,9 +64,12 @@ public class UserService {
     }
 
     @Transactional
-    public void editUser(UserDto.PutRequest dto, User user) {
+    public void editUser(UserDto.PutRequest dto, User prevUser) {
+        User user = userRepository.findById(prevUser.getId()).orElseThrow();
         user.setNickname(dto.getNickname());
         user.setUsername(dto.getUsername());
+        user.setStudentId(dto.getStudentId());
+        user.setMajor(dto.getMajor());
         userRepository.save(user);
     }
 }

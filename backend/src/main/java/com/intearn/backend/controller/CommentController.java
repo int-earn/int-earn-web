@@ -51,7 +51,8 @@ public class CommentController {
         List<CommentResponse> collect = commentsByBoard.stream()
                 .map(m -> new CommentResponse(m.getId(), m.getContent(),
                         Objects.equals(m.getUser().getId(), principalDetails.getUser().getId()),
-                        false, m.getCreatedDate(), m.getUser().getId(), m.getUser().getNickname()))
+                        false, m.getCreatedDate(), m.getUser().getId(), m.getUser().getNickname(),
+                        m.getUser().getMajor() == null ? null : m.getUser().getMajor().name(), m.getUser().getStudentId()))
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(collect);

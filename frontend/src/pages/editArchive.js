@@ -1,41 +1,60 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import { MyDropzone } from '../common/Dropzone'
+import { useNavigate, useParams } from 'react-router-dom';
 import { AxiosC } from '../common/axiosC';
 import { API_URL } from '../config';
-import { useNavigate } from 'react-router-dom';
 import { msg403 } from '../common/function';
 
-export default function AddPost() {
+export default function EditArchive() {
+    const { id } = useParams();
     const navigate = useNavigate();
     const [error, setError] = useState('');
-    const [boardInput, setBoardInput] = useState({
+    const [loading, setLoading] = useState(null);
+    const [archiveInput, setArchiveInput] = useState({
         title: '',
         content: '',
+        img: null,
     })
+    const [img, setImg] = useState(null);
+    const [previewImg, setPreviewImg] = useState(null);
+    const [atFirst, setAtFirst] = useState(true);
 
     const handleChange = (e) => {
         const {name, value} = e.target;
         setError('');
-        setBoardInput({
-            ...boardInput,
+        setArchiveInput({
+            ...archiveInput,
             [name]: value,
         })
     }
 
     const handleSubmit = async (e) => {
+        if (archiveInput.title === "") {
+            setError('*제목을 입력해주세요')
+            return;
+        } else if (archiveInput.content === '') {
+            setError('*본문 내용을 입력해주세요')
+            return;
+        } else if (img === null) {
+            setError('*사진을 업로드해주세요')
+            return;
+        }
         try {
-            if (boardInput.title === '') {
-                setError('*제목을 입력해주세요')
-                return;
-            } else if (boardInput.content === '') {
-                setError('*본문 내용을 입력해주세요')
-                return;
-            }
-
-            const axiosInstance = await AxiosC();
-            await axiosInstance.post(`${API_URL}/api/board`, boardInput);
-            navigate('/board');
+            setLoading(true);
+            const formData = new FormData();
+            formData.append("image", img);
+            formData.append("title", archiveInput.title);
+            formData.append("content", archiveInput.content);
+            //formData.append("contentsData", new Blob([JSON.stringify(archiveInput)], {type: "application/json"}))
             
+            const axiosInstance = await AxiosC();
+            const resultImg = await axiosInstance.put(
+                `${API_URL}/api/archive/${id}`, 
+                formData,
+            );
+            setLoading(false);
+            navigate('/archive');
         } catch (error) {
             if (error.response.status === 403) {
                 alert(msg403)
@@ -46,21 +65,49 @@ export default function AddPost() {
         }
     }
 
+    useEffect(() => {
+        const loadPost = async () => {
+            try {
+                const axiosInstance = await AxiosC();
+                const result = await axiosInstance.get(`${API_URL}/api/archive/${id}`);
+                //setData(result.data);
+                setArchiveInput(result.data)
+            } catch (error) {
+                if (error.response.status === 403) {
+                    alert(msg403);
+                    navigate('/login');
+                } else {
+                    console.log(error);
+                }
+            }
+        }
+        loadPost();
+    }, [])
+
     return (
-    <Container className='container'>
+        <Container>
         <InnerContainer>
             <Empty className='col-xs-12 col-md-2'></Empty>
             <TopBox className='col-xs-12 col-md-8'>
-                <h2 style={{marginBottom: '7px'}}>BOARD</h2>
-                <Button onClick={handleSubmit}>등록하기</Button>
+                <h2 style={{marginBottom: '7px'}}>Archive</h2>
+                <Button onClick={handleSubmit}>수정하기</Button>
             </TopBox>
             <Empty className='d-none d-md-block col-md-2' style={{height: '30px', marginBottom: '20px'}}></Empty>
             <Empty className='col-xs-12 col-md-2'></Empty>
             <BoardBox className='col-xs-12 col-md-8'>
                 {error === '' ? <div style={{height: '23.71px'}}></div> : <ErrorMsg>{error}</ErrorMsg>}
+                {loading ? <LoadingMsg>게시글을 수정 중입니다.</LoadingMsg> : <div style={{height: '23.71px'}}></div>}
+                {atFirst &&
+                    <img src={`data:image/jpeg;base64,${archiveInput.img}`} alt={archiveInput.title} style={{maxWidth: '100%', maxHeight: '250px', margin: 'auto', display: 'block', marginBottom: '10px'}} />
+                }
+                {previewImg && 
+                    <img src={previewImg} alt="uploaded" style={{maxWidth: '100%', maxHeight: '250px', margin: 'auto', display: 'block', marginBottom: '10px'}} />
+                }
+                <MyDropzone setImg={setImg} setPreviewImg={setPreviewImg} setAtFirst={setAtFirst} />
                 <Input 
                     required
                     placeholder='제목'
+                    value={archiveInput.title}
                     onChange={handleChange}
                     name='title'
                     type='text'
@@ -68,6 +115,7 @@ export default function AddPost() {
                 <Textarea 
                     required
                     placeholder='본문 내용을 입력하세요'
+                    value={archiveInput.content}
                     onChange={handleChange}
                     name='content'
                     type='text'
@@ -76,7 +124,7 @@ export default function AddPost() {
             <Empty className='col-xs-12 col-md-2'></Empty>
             
         </InnerContainer>
-    </Container>
+        </Container>
     )
 }
 
@@ -129,7 +177,7 @@ const Input = styled.input`
     padding: 8px;
     color: black;
     outline: none;
-    //margin-top: 14px;
+    margin-top: 14px;
     width: 100%;
 
     &:focus {
@@ -164,4 +212,11 @@ const ErrorMsg = styled.div`
     font-size: 11px;
     font-weight: bold;
     padding-top: 8px;
+`
+
+const LoadingMsg = styled.div`
+    color: blue;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 8px 0;
 `
