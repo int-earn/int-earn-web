@@ -63,7 +63,7 @@ export const Navigation = (props) => {
             </li> */}
             {/* <Link to='/'>Features</Link> */}
             <li>
-              <a href="/#about" className="page-scroll">
+              <a href="/about" className="page-scroll">
                 웹페이지 소개
               </a>
             </li>
@@ -73,7 +73,7 @@ export const Navigation = (props) => {
               </a>
             </li>
             <li>
-              <a href="/#portfolio" className="page-scroll">
+              <a href="/archive" className="page-scroll">
                 아카이브
               </a>
             </li>

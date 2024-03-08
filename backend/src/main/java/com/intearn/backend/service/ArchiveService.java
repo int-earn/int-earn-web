@@ -78,8 +78,12 @@ public class ArchiveService {
      * 게시글 삭제
      */
     @Transactional
-    public void deleteArchive(Long id) {
-        archiveRepository.deleteById(id);
+    public void deleteArchive(Archive archive) {
+        archiveRepository.deleteById(archive.getId());
+        s3Service.deleteObject(
+                s3Buckets.getCustomer(),
+                "archive-images/%s/%s".formatted(archive.getId(), archive.getImgId())
+        );
     }
 
     @Transactional

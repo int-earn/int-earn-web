@@ -17,6 +17,8 @@ public class CommentDto {
         private LocalDateTime createdDate;
         private Long userId;
         private String nickname;
+        private String major;
+        private String studentId;
     }
 
     @Data

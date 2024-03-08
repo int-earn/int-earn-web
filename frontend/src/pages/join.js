@@ -55,12 +55,13 @@ export default function Join() {
             studentId: studentId,
             major: major
         }
+        try {
         const response = await axios.post(`${API_URL}/api/user/save`, data)
         //console.log(response);
         if (response.status === 201) {
             navigate('/')
-        } else {
-            
+        }} catch (e) {
+            setError({...error, username: "닉네임 또는 아이디가 중복됩니다."})
         }
     }
     return (

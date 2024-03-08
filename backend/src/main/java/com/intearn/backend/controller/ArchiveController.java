@@ -35,6 +35,8 @@ public class ArchiveController {
         return allArchives.stream()
                 .map(m -> new ArchiveResponse(m.getId(), m.getTitle(), m.getContent(), m.getCreatedDate(), m.getModifiedDate(),
                                 m.getUser().getId(), m.getUser().getNickname(),
+                                m.getUser().getMajor() == null ? null : m.getUser().getMajor().name(),
+                                m.getUser().getStudentId(),
                                 Base64.getEncoder().encodeToString(archiveService.getArchiveImg(m.getId()))))
                 .collect(Collectors.toList());
     }
@@ -57,6 +59,8 @@ public class ArchiveController {
                     archive.getModifiedDate(),
                     archive.getUser().getId(),
                     archive.getUser().getNickname(),
+                    archive.getUser().getMajor() == null ? null : archive.getUser().getMajor().name(),
+                    archive.getUser().getStudentId(),
                     imgBase64
             );
             return ResponseEntity.ok(archiveResponse);
@@ -165,7 +169,7 @@ public class ArchiveController {
             }
 
             // 삭제
-            archiveService.deleteArchive(archiveId);
+            archiveService.deleteArchive(archive);
 
             return ResponseEntity.noContent().build();
         } else {

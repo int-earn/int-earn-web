@@ -31,7 +31,8 @@ public class BoardController {
         List<Board> allBoards = boardService.getAllBoards();
         return allBoards.stream()
                 .map(m -> new BoardResponse(m.getId(), m.getTitle(), m.getContent(), m.getCreatedDate(), m.getModifiedDate(),
-                                m.getUser().getId(), m.getUser().getNickname()))
+                                m.getUser().getId(), m.getUser().getNickname(),
+                                m.getUser().getMajor() == null ? null : m.getUser().getMajor().name(), m.getUser().getStudentId()))
                 .collect(Collectors.toList());
     }
 
@@ -50,7 +51,9 @@ public class BoardController {
                     board.getCreatedDate(),
                     board.getModifiedDate(),
                     board.getUser().getId(),
-                    board.getUser().getNickname()
+                    board.getUser().getNickname(),
+                    board.getUser().getMajor() == null ? null : board.getUser().getMajor().name(),
+                    board.getUser().getStudentId()
             );
             return ResponseEntity.ok(boardResponse);
         } else {

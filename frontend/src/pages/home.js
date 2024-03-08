@@ -78,7 +78,7 @@ export default function Home() {
       loadUser();
     }, [])*/
     return (
-        <div>
+        <div style={{marginBottom: '100px'}}>
         {/* <TestHeader />
         <About data={landingPageData.About} />
         <Services data={landingPageData.Services} />
@@ -89,10 +89,10 @@ export default function Home() {
         </Banner>
         <Main>
           <div className='main-margin'></div>
-          <Empty className='d-none d-md-block col-md-1' style={{height: '30px', marginBottom: '20px'}}></Empty>
+          <Empty className='d-none d-md-block col-md-1' style={{height: '30px', marginBottom: '0px'}}></Empty>
           <div className='col-xs-12 col-md-5'>
             <TopBox style={{display: 'flex', justifyContent: 'space-between', }}>
-              <h2 className='main-h2'>BOARD</h2>
+              <h2 className='main-h2' style={{marginBottom: '3px'}}>BOARD</h2>
               <Button onClick={handleBoardBtnClick}>View All</Button>
             </TopBox>
             <BoardBox>
@@ -122,9 +122,20 @@ export default function Home() {
             </BoardBox>
           </div>
 
-          <div className='col-xs-12 col-md-5 main-each-box'>
-            <h2 className='main-h2'>Archive</h2>
-            
+          <div className='col-xs-12 col-md-5 main-each-box' style={{marginBottom: '150px'}}>
+            <TopBox2>
+              <h2 className='main-h2'>Archive</h2>
+              <Button onClick={() => navigate('/archive')}>View All</Button>
+            </TopBox2>
+            <div className='row'>
+              {JsonData.Gallery.map((img, i) => (
+                <div key={`${img.title}-${i}`} className='col-xs-12 col-sm-6 col-md-4 col-lg-4' style={{padding: '1px'}}>
+                  <img src={img.smallImage} alt={img.title} className='img-responsive' style={{height: '180px', width: '100%', objectFit: 'cover'}} />
+                </div>
+              ))
+
+              }
+            </div>
           </div>
           <Empty className='d-none d-md-block col-md-1' style={{height: '30px', marginBottom: '20px'}}></Empty>
         </Main>
@@ -136,7 +147,7 @@ export default function Home() {
 const Banner = styled.div`
 display: flex;
 background-color: #303030;
-height: 250px;
+height: 280px;
 padding-top: 130px;
 `
 
@@ -144,8 +155,14 @@ const TopBox = styled.div`
 display: flex;
 justify-content: space-between;
 border-bottom: 2px solid black;
-padding-bottom: 7px;
-margin-bottom: 7px;
+padding-bottom: 10px;
+margin-bottom: 16px;
+`
+const TopBox2 = styled.div`
+display: flex;
+justify-content: space-between;
+//padding-bottom: 7px;
+margin-bottom: 13px;
 `
 
 const Button = styled.button`
@@ -164,7 +181,7 @@ const Main = styled.div`
 background-color: white;
 
 .main-margin {
-  height: 40px;
+  height: 60px;
 }
 .main-h2 {
   //marginRight: 15px;
@@ -181,6 +198,7 @@ const Empty = styled.div`
 const BoardBox = styled.div`
 padding: 10px;
 font-family: var(--font-nanum-light);
+margin-bottom: 40px;
 
 .board-each {
   display: flex;
