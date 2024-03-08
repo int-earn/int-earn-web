@@ -51,6 +51,7 @@ export default function Home() {
     useEffect(() => {
       const loadBoardTitle = async () => {
         try {
+          console.log(API_URL)
           const result = await axios.get(`${API_URL}/api/board/title`)
           setBoardTitle(result.data);
         } catch (error) {
@@ -101,20 +102,20 @@ export default function Home() {
               [...boardTitle].reverse().slice(0, 10).map(b => (
                 <div className='board-each' key={b.id} onClick={() => handlePostClick(b.id)}>
                   <div className='board-title'>{b.title}</div>
-                  {b && <div>
+                  <div>
                     {b.createdDate[1] < 10 ? '0'+b.createdDate[1] : b.createdDate[1]}.
                     {b.createdDate[2] < 10 ? '0'+b.createdDate[2] : b.createdDate[2]}
-                  </div>}
+                  </div>
                 </div>
               ))
               :
               [...boardTitle].reverse().map(b => (
                 <div className='board-each' key={b.id} onClick={() => handlePostClick(b.id)}>
                   <div className='board-title'>{b.title}</div>
-                  {b && <div>
+                  <div>
                     {b.createdDate[1] < 10 ? '0'+b.createdDate[1] : b.createdDate[1]}.
                     {b.createdDate[2] < 10 ? '0'+b.createdDate[2] : b.createdDate[2]}
-                  </div>}
+                  </div>
                 </div>
               ))
               )
