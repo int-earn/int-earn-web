@@ -101,20 +101,20 @@ export default function Home() {
               [...boardTitle].reverse().slice(0, 10).map(b => (
                 <div className='board-each' key={b.id} onClick={() => handlePostClick(b.id)}>
                   <div className='board-title'>{b.title}</div>
-                  <div>
+                  {b && <div>
                     {b.createdDate[1] < 10 ? '0'+b.createdDate[1] : b.createdDate[1]}.
                     {b.createdDate[2] < 10 ? '0'+b.createdDate[2] : b.createdDate[2]}
-                  </div>
+                  </div>}
                 </div>
               ))
               :
               [...boardTitle].reverse().map(b => (
                 <div className='board-each' key={b.id} onClick={() => handlePostClick(b.id)}>
                   <div className='board-title'>{b.title}</div>
-                  <div>
+                  {b && <div>
                     {b.createdDate[1] < 10 ? '0'+b.createdDate[1] : b.createdDate[1]}.
                     {b.createdDate[2] < 10 ? '0'+b.createdDate[2] : b.createdDate[2]}
-                  </div>
+                  </div>}
                 </div>
               ))
               )
