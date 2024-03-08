@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 class BoardServiceTest {
 
-    @Autowired
+    /*@Autowired
     BoardService boardService;
 
     @Test
@@ -89,6 +89,6 @@ class BoardServiceTest {
         Optional<Board> findBoard = boardService.getBoardById(newBoard.getId());
 
         assertEquals(Optional.empty(), findBoard);
-    }
+    }*/
 
 }

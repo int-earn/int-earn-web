@@ -26,6 +26,7 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
   });
 
 export default function Home() {
+    const navigate = useNavigate();
     const [landingPageData, setLandingPageData] = useState({});
     const [boardTitle, setBoardTitle] = useState([]);
     //const isAuthenticated = useRecoilValue(userState).isAuthenticated;
