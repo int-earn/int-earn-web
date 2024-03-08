@@ -62,28 +62,8 @@ export default function Home() {
       setLandingPageData(JsonData);
     }, []);
 
-    /*useEffect(() => {
-      const loadUser = async () => {
-        try {
-          const axiosInstance = await AxiosC();
-          const result = await axiosInstance.get(`${API_URL}/api/user`)
-          setUser(prev => ({
-            ...prev,
-            user: result.data.data,
-            isAuthenticated: true,
-          }));
-        } catch (error) {
-          handleError(error);
-        }
-      }
-      loadUser();
-    }, [])*/
     return (
         <div style={{marginBottom: '100px'}}>
-        {/* <TestHeader />
-        <About data={landingPageData.About} />
-        <Services data={landingPageData.Services} />
-        <Gallery data={landingPageData.Gallery} /> */}
         <Banner>
         <Empty className='d-none d-md-block col-md-1' style={{height: '30px', marginBottom: '20px'}}></Empty>
           {/* <H2>SKKU</H2><H2>GLOBAL</H2><H2>CHALLENGE</H2> */}
