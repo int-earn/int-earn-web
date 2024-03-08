@@ -27,7 +27,7 @@ jobs:
 
       - name: Generate Environment Variables File for Production
         run: |
-          echo "REACT_APP_IP=$REACT_APP_IP" >> .env.production
+          echo "REACT_APP_IP=$REACT_APP_IP" >> .env
         env:
           REACT_APP_IP: ${{ secrets.REACT_APP_IP }}
 
